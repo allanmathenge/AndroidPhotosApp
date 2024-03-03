@@ -4,18 +4,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
 
     private var currentImage = 0
-    lateinit var image : ImageView
+    private lateinit var image : ImageView
+    private var places = arrayOf("Sky Moon", "Mombasa Beach", "Wild Cat", "Tsavo Eagles")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val next = findViewById<ImageButton>(R.id.btnNext)
         val prev = findViewById<ImageButton>(R.id.btnPrev)
-
+        val placeName = findViewById<TextView>(R.id.tvName)
 
         next.setOnClickListener{
             // Scroll to the next image
@@ -26,12 +29,13 @@ class MainActivity : AppCompatActivity() {
             image = findViewById(idCurrentImageInt)
             image.alpha = 0f
 
-            currentImage = (5 + currentImage+1)%5
+            currentImage = (4 + currentImage+1)%4
             var idImageToSowString = "pic$currentImage"
             var idImageToShowInt = this.resources.getIdentifier(idImageToSowString, "id", packageName)
             image = findViewById(idImageToShowInt)
             image.alpha = 1f
 
+            placeName.text = places[currentImage]
         }
 
         prev.setOnClickListener{
@@ -43,12 +47,13 @@ class MainActivity : AppCompatActivity() {
             image = findViewById(idCurrentImageInt)
             image.alpha = 0f
 
-            currentImage = (5 + currentImage-1)%5
+            currentImage = (4 + currentImage-1)%4
             var idImageToSowString = "pic$currentImage"
             var idImageToShowInt = this.resources.getIdentifier(idImageToSowString, "id", packageName)
             image = findViewById(idImageToShowInt)
             image.alpha = 1f
 
+            placeName.text = places[currentImage]
         }
     }
 }
